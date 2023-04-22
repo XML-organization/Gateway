@@ -1,0 +1,56 @@
+version: "3.8"
+services:
+  gateway:
+    image: nginx:1.19.8-alpine
+    ports:
+      - 8082:8082
+    networks:
+      - backend
+    volumes:
+      - ./Gateway/nginx.conf:/etc/nginx/nginx.conf
+      - ./Gateway/api_gateway.conf:/etc/nginx/api_gateway.conf
+
+  accomodation-service:
+    image: accomodation-service:compose_build
+    build:
+      context: ./AccommodationService
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    environment:
+      PORT: ${ACCOMODATION_SERVICE_PORT}
+
+  autentification-service:
+    image: autentification-service:compose_build
+    build:
+      context: ./AutentificationService
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    environment:
+      PORT: ${AUTENTIFICATION_SERVICE_PORT}
+
+  booking-service:
+    image: booking-service:compose_build
+    build:
+      context: ./BookingService
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    environment:
+      PORT: ${BOOKING_SERVICE_PORT}
+
+  user-service:
+    image: user-service:compose_build
+    build:
+      context: ./UserService
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    environment:
+      PORT: ${USER_SERVICE_PORT}
+
+networks:
+  backend:
+    name: restuarant
+    driver: bridge
