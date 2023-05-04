@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"api_gateway/startup"
+	"api_gateway/startup/config"
+)
 
 func main() {
-	fmt.Printf("asdasd")
+	config := config.NewConfig()
+	server := startup.NewServer(config)
+	server.Start()
 }
