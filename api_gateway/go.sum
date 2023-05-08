@@ -1,5 +1,7 @@
 github.com/XML-organization/common v1.0.1-0.20230504130318-3a270381458d h1:Cnryx2MF57nX7q/JBrwvskhGQENSRywiI7HAN+gNfKw=
 github.com/XML-organization/common v1.0.1-0.20230504130318-3a270381458d/go.mod h1:bc8T73nKC7/lpRIT78ypCiPmU9Ui9Q0XjaV6AWRD0Eg=
+github.com/XML-organization/common v1.0.1-0.20230505091723-07badc01f120 h1:gDIHtGWwsxAXBTX+gR16pR411zUivuAxaQy6BkhgQns=
+github.com/XML-organization/common v1.0.1-0.20230505091723-07badc01f120/go.mod h1:4OJb0RCJjJU4p862Wz1AynOU9qW5GCZ/N/Bk02Dhnwc=
 github.com/golang/glog v1.0.0 h1:nfP3RFugxnNRyKgeWd4oI1nYvXpxrx8ck8ZrcizshdQ=
 github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaSAoJOfIk=
 github.com/golang/protobuf v1.5.3 h1:KhyjKVUg7Usr/dYsdSqoFveMYd5ko72D+zANwlG1mmg=
