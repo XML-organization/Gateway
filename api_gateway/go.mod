@@ -2,7 +2,7 @@ module api_gateway
 
 go 1.20
 
-replace github.com/XML-organization/common => ../common
+replace github.com/XML-organization/common => ../../common
 
 require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.2
