@@ -5,14 +5,17 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
+	cfg "api_gateway/startup/config"
+
+	accomodationGw "github.com/XML-organization/common/proto/accomodation_service"
 	autentificationGw "github.com/XML-organization/common/proto/autentification_service"
 	bookingGw "github.com/XML-organization/common/proto/booking_service"
 	userGw "github.com/XML-organization/common/proto/user_service"
-	cfg "api_gateway/startup/config"
 )
 
 type Server struct {
@@ -43,6 +46,11 @@ func (server *Server) initHandlers() {
 	}
 	bookingEmdpoint := fmt.Sprintf("%s:%s", server.config.BookingHost, server.config.BookingPort)
 	err = bookingGw.RegisterBookingServiceHandlerFromEndpoint(context.TODO(), server.mux, bookingEmdpoint, opts)
+	if err != nil {
+		panic(err)
+	}
+	accomodationEmdpoint := fmt.Sprintf("%s:%s", server.config.AccomodationHost, server.config.AccomodationPort)
+	err = accomodationGw.RegisterAccommodationServiceHandlerFromEndpoint(context.TODO(), server.mux, accomodationEmdpoint, opts)
 	if err != nil {
 		panic(err)
 	}
