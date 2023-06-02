@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package booking_service;
+package booking;
 
 option go_package = "common/proto/booking";
 
@@ -13,6 +13,42 @@ service BookingService {
         body: "*"
 	};
   }
+
+  rpc GetAll (EmptyRequst) returns (BookingResponse) {
+    option (google.api.http) = {
+		get: "/booking/getAll"
+	};
+  }
+
+  rpc GetAllOnPending (GetAllPendingRequest) returns (BookingResponse) {
+    option (google.api.http) = {
+		get: "/booking/getAllPending/{hostId}"
+	};
+  }
+
+  rpc Decline (CreateBookingRequest) returns (CreateBookingResponse) {
+    option (google.api.http) = {
+		post: "/booking/decline"
+        body: "*"
+	};
+  }
+
+  rpc Confirm (CreateBookingRequest) returns (CreateBookingResponse) {
+    option (google.api.http) = {
+		post: "/booking/confirm"
+        body: "*"
+	};
+  }
+
+  rpc GetAllReservations(ReservationRequest) returns(ReservationResponse) {
+    option (google.api.http) = {
+    get: "/booking/reservation/{accomodationId}"
+  };
+  }
+}
+
+message GetAllPendingRequest {
+  string hostId = 1;
 }
 
 message CreateBookingRequest {
@@ -21,15 +57,25 @@ message CreateBookingRequest {
   string startDate = 3;
   string endDate = 4;
   string guestNumber = 5;
-  Status status = 6;
+  string status = 6;
+}
+
+message EmptyRequst {
+  // Prazna poruka, bez polja
 }
 
 message CreateBookingResponse {
   string message = 1;
 }
 
-enum Status {
-  CONFIRMED = 0;
-  PENDING = 1;
-  DECLINED = 2;
+message BookingResponse {
+  repeated CreateBookingRequest bookings = 1;
+}
+
+message ReservationRequest {
+  string accomodationId = 1;
+}
+
+message ReservationResponse {
+  repeated CreateBookingRequest reservations = 1;
 }
