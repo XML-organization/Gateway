@@ -45,6 +45,19 @@ service BookingService {
     get: "/booking/reservation/{accomodationId}"
   };
   }
+
+  rpc GetUserReservations(UserReservationRequest) returns(ReservationResponse) {
+    option (google.api.http) = {
+    get: "/booking/GetUserReservations/{userId}"
+  };
+  }
+
+    rpc CanceledBooking (CanceledBookingRequest) returns (CanceledBookingResponse) {
+    option (google.api.http) = {
+		put: "/booking/canceledBooking/{id}"
+        body: "*"
+	};
+  }
 }
 
 message GetAllPendingRequest {
@@ -54,10 +67,11 @@ message GetAllPendingRequest {
 message CreateBookingRequest {
   string id = 1;
   string accomodationID = 2;
-  string startDate = 3;
-  string endDate = 4;
-  string guestNumber = 5;
-  string status = 6;
+  string userID = 3;
+  string startDate = 4;
+  string endDate = 5;
+  string guestNumber = 6;
+  string status = 7;
 }
 
 message EmptyRequst {
@@ -75,7 +89,18 @@ message BookingResponse {
 message ReservationRequest {
   string accomodationId = 1;
 }
+message UserReservationRequest {
+  string userId = 1;
+}
 
 message ReservationResponse {
   repeated CreateBookingRequest reservations = 1;
+}
+
+message CanceledBookingRequest {
+  string id = 1;
+}
+
+message CanceledBookingResponse {
+  string message = 1;
 }
