@@ -17,6 +17,7 @@ import (
 	accomodationGw "github.com/XML-organization/common/proto/accomodation_service"
 	autentificationGw "github.com/XML-organization/common/proto/autentification_service"
 	bookingGw "github.com/XML-organization/common/proto/booking_service"
+	notificationGw "github.com/XML-organization/common/proto/notification_service"
 	userGw "github.com/XML-organization/common/proto/user_service"
 )
 
@@ -53,6 +54,11 @@ func (server *Server) initHandlers() {
 	}
 	accomodationEmdpoint := fmt.Sprintf("%s:%s", server.config.AccomodationHost, server.config.AccomodationPort)
 	err = accomodationGw.RegisterAccommodationServiceHandlerFromEndpoint(context.TODO(), server.mux, accomodationEmdpoint, opts)
+	if err != nil {
+		panic(err)
+	}
+	notificationEmdpoint := fmt.Sprintf("%s:%s", server.config.NotificationHost, server.config.NotificationPort)
+	err = notificationGw.RegisterNotificationServiceHandlerFromEndpoint(context.TODO(), server.mux, notificationEmdpoint, opts)
 	if err != nil {
 		panic(err)
 	}
